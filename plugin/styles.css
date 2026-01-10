@@ -1,0 +1,110 @@
+/* Company Knowledge Hub - Modal Styles */
+
+.knowledge-hub-modal {
+  padding: 1rem;
+}
+
+.knowledge-hub-modal h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 0.5rem;
+}
+
+.knowledge-hub-modal h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-normal);
+}
+
+.knowledge-hub-modal .warning-header {
+  color: var(--text-warning);
+}
+
+/* File Lists */
+.knowledge-hub-modal .file-list {
+  background: var(--background-secondary);
+  border-radius: 6px;
+  padding: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.knowledge-hub-modal .file-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+}
+
+.knowledge-hub-modal .file-item:hover {
+  background: var(--background-modifier-hover);
+}
+
+.knowledge-hub-modal .file-item input[type="checkbox"] {
+  margin: 0;
+}
+
+.knowledge-hub-modal .file-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.knowledge-hub-modal .file-item.invalid {
+  opacity: 0.7;
+}
+
+.knowledge-hub-modal .error-text {
+  color: var(--text-error);
+  font-size: 0.85rem;
+}
+
+/* Valid Section */
+.knowledge-hub-modal .valid-section {
+  margin-bottom: 1rem;
+}
+
+/* Invalid Section */
+.knowledge-hub-modal .invalid-section {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--background-modifier-error-rgb);
+  border-radius: 6px;
+  border-left: 3px solid var(--text-error);
+}
+
+.knowledge-hub-modal .invalid-section h3 {
+  margin-top: 0;
+}
+
+/* Buttons */
+.knowledge-hub-modal .button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.knowledge-hub-modal .button-container button {
+  padding: 0.5rem 1rem;
+}
+
+.knowledge-hub-modal .button-container button.mod-cta {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.knowledge-hub-modal .button-container button.mod-cta:hover {
+  background: var(--interactive-accent-hover);
+}
+
+.knowledge-hub-modal .button-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

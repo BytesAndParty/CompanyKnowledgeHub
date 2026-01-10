@@ -6,7 +6,6 @@ import {
   PluginSettingTab,
   Setting,
   TFile,
-  TFolder,
 } from "obsidian";
 
 // ============================================================================
@@ -16,12 +15,14 @@ import {
 interface KnowledgeHubSettings {
   publicFolder: string;
   notesFolder: string;
+  attachmentsFolder: string;
   requiredFields: string[];
 }
 
 const DEFAULT_SETTINGS: KnowledgeHubSettings = {
   publicFolder: "PUBLIC",
   notesFolder: "Notes",
+  attachmentsFolder: "Attachments",
   requiredFields: ["categories"],
 };
 
@@ -132,11 +133,52 @@ export default class KnowledgeHubPlugin extends Plugin {
   }
 
   /**
+   * Find all embedded attachments in a file (images, PDFs, etc.)
+   */
+  getEmbeddedAttachments(file: TFile): TFile[] {
+    const attachments: TFile[] = [];
+    const cache = this.app.metadataCache.getFileCache(file);
+
+    if (!cache?.embeds) return attachments;
+
+    for (const embed of cache.embeds) {
+      const linkedFile = this.app.metadataCache.getFirstLinkpathDest(
+        embed.link,
+        file.path
+      );
+
+      if (linkedFile instanceof TFile && !linkedFile.extension.match(/md/)) {
+        attachments.push(linkedFile);
+      }
+    }
+
+    return attachments;
+  }
+
+  /**
    * Move a file to PUBLIC folder and set publishDate
    */
   async publishFile(file: TFile): Promise<void> {
     // Ensure PUBLIC folder exists
     await this.ensureFolderExists(this.settings.publicFolder);
+
+    // Ensure PUBLIC/Attachments folder exists
+    const attachmentsPath = `${this.settings.publicFolder}/${this.settings.attachmentsFolder}`;
+    await this.ensureFolderExists(attachmentsPath);
+
+    // Move embedded attachments first
+    const attachments = this.getEmbeddedAttachments(file);
+    for (const attachment of attachments) {
+      // Skip if already in PUBLIC/Attachments
+      if (attachment.path.startsWith(attachmentsPath)) continue;
+
+      const newAttachmentPath = `${attachmentsPath}/${attachment.name}`;
+      try {
+        await this.app.fileManager.renameFile(attachment, newAttachmentPath);
+      } catch (error) {
+        console.error(`Failed to move attachment ${attachment.path}:`, error);
+      }
+    }
 
     // Set publishDate in frontmatter
     await this.app.fileManager.processFrontMatter(file, (fm) => {
@@ -185,7 +227,7 @@ export default class KnowledgeHubPlugin extends Plugin {
     const results = await this.findPublishableFiles();
 
     if (results.length === 0) {
-      new Notice("No files with isPublished: yes found");
+      new Notice("No files with isPublished: true found");
       return;
     }
 
@@ -347,6 +389,19 @@ class KnowledgeHubSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.notesFolder)
           .onChange(async (value) => {
             this.plugin.settings.notesFolder = value || "Notes";
+            await this.plugin.saveSettings();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName("Attachments subfolder")
+      .setDesc("Subfolder within PUBLIC for images and attachments")
+      .addText((text) =>
+        text
+          .setPlaceholder("Attachments")
+          .setValue(this.plugin.settings.attachmentsFolder)
+          .onChange(async (value) => {
+            this.plugin.settings.attachmentsFolder = value || "Attachments";
             await this.plugin.saveSettings();
           })
       );
