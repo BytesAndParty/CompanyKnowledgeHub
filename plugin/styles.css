@@ -1,20 +1,20 @@
 /* Company Knowledge Hub - Modal Styles */
 
 .knowledge-hub-modal {
-  padding: 1rem;
+  padding: var(--size-4-4);
 }
 
 .knowledge-hub-modal h2 {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--size-4-4);
   border-bottom: 1px solid var(--background-modifier-border);
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--size-4-2);
 }
 
 .knowledge-hub-modal h3 {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  margin-top: var(--size-4-3);
+  margin-bottom: var(--size-4-2);
+  font-size: var(--font-ui-small);
   color: var(--text-normal);
 }
 
@@ -25,8 +25,8 @@
 /* File Lists */
 .knowledge-hub-modal .file-list {
   background: var(--background-secondary);
-  border-radius: 6px;
-  padding: 0.5rem;
+  border-radius: var(--radius-s);
+  padding: var(--size-4-2);
   max-height: 200px;
   overflow-y: auto;
 }
@@ -34,9 +34,9 @@
 .knowledge-hub-modal .file-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.5rem;
-  border-radius: 4px;
+  gap: var(--size-4-2);
+  padding: var(--size-4-1) var(--size-4-2);
+  border-radius: var(--radius-s);
 }
 
 .knowledge-hub-modal .file-item:hover {
@@ -60,20 +60,20 @@
 
 .knowledge-hub-modal .error-text {
   color: var(--text-error);
-  font-size: 0.85rem;
+  font-size: var(--font-ui-smaller);
 }
 
 /* Valid Section */
 .knowledge-hub-modal .valid-section {
-  margin-bottom: 1rem;
+  margin-bottom: var(--size-4-3);
 }
 
 /* Invalid Section */
 .knowledge-hub-modal .invalid-section {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
+  margin-bottom: var(--size-4-3);
+  padding: var(--size-4-3);
   background: var(--background-modifier-error-rgb);
-  border-radius: 6px;
+  border-radius: var(--radius-s);
   border-left: 3px solid var(--text-error);
 }
 
@@ -85,14 +85,14 @@
 .knowledge-hub-modal .button-container {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-4);
+  padding-top: var(--size-4-3);
   border-top: 1px solid var(--background-modifier-border);
 }
 
 .knowledge-hub-modal .button-container button {
-  padding: 0.5rem 1rem;
+  padding: var(--size-4-2) var(--size-4-3);
 }
 
 .knowledge-hub-modal .button-container button.mod-cta {
@@ -107,4 +107,23 @@
 .knowledge-hub-modal .button-container button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .knowledge-hub-modal {
+    padding: var(--size-4-3);
+  }
+
+  .knowledge-hub-modal .file-list {
+    max-height: 150px;
+  }
+
+  .knowledge-hub-modal .button-container {
+    flex-direction: column;
+  }
+
+  .knowledge-hub-modal .button-container button {
+    width: 100%;
+  }
 }
