@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun init:*)",
+      "Bash(bun install:*)",
+      "Bash(bun run build)"
+    ]
+  }
+}

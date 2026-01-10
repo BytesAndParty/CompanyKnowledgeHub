@@ -1,0 +1,10 @@
+{
+  "id": "company-knowledge-hub",
+  "name": "Company Knowledge Hub",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Publish notes with isPublished: yes to a shared PUBLIC folder for team knowledge sharing.",
+  "author": "Robert Stickler",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}

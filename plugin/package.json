@@ -1,0 +1,27 @@
+{
+  "name": "company-knowledge-hub",
+  "version": "1.0.0",
+  "description": "Publish notes to a shared knowledge hub",
+  "main": "main.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run esbuild.config.mjs",
+    "build": "bun run esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "knowledge-hub",
+    "publish"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "builtin-modules": "^4.0.0",
+    "esbuild": "^0.24.0",
+    "obsidian": "^1.7.2",
+    "typescript": "^5.6.0"
+  }
+}
