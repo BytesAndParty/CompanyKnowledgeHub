@@ -26,6 +26,42 @@ const DEFAULT_SETTINGS: KnowledgeHubSettings = {
   requiredFields: ["categories"],
 };
 
+// Security: Characters not allowed in folder names
+const INVALID_FOLDER_CHARS = /[\\:*?"<>|]/g;
+
+/**
+ * Validates a folder name for security
+ * @param name The folder name to validate
+ * @returns true if valid, false if contains dangerous patterns
+ */
+function isValidFolderName(name: string): boolean {
+  if (!name || typeof name !== "string") return false;
+
+  const trimmed = name.trim();
+
+  // Block path traversal attempts
+  if (trimmed.includes("..")) return false;
+  if (trimmed.startsWith("/") || trimmed.startsWith("\\")) return false;
+
+  // Block invalid characters
+  if (INVALID_FOLDER_CHARS.test(trimmed)) return false;
+
+  // Block empty after trim
+  if (trimmed.length === 0) return false;
+
+  return true;
+}
+
+/**
+ * Sanitizes a folder name, returns default if invalid
+ */
+function sanitizeFolderName(name: string, defaultValue: string): string {
+  if (isValidFolderName(name)) {
+    return name.trim();
+  }
+  return defaultValue;
+}
+
 interface FileValidationResult {
   file: TFile;
   valid: boolean;
@@ -369,39 +405,51 @@ class KnowledgeHubSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Public folder")
-      .setDesc("Folder where published files will be moved to")
+      .setDesc("Folder where published files will be moved to. No special characters or path traversal allowed.")
       .addText((text) =>
         text
           .setPlaceholder("PUBLIC")
           .setValue(this.plugin.settings.publicFolder)
           .onChange(async (value) => {
-            this.plugin.settings.publicFolder = value || "PUBLIC";
+            const sanitized = sanitizeFolderName(value, "PUBLIC");
+            this.plugin.settings.publicFolder = sanitized;
+            if (value !== sanitized && value.trim().length > 0) {
+              text.setValue(sanitized);
+            }
             await this.plugin.saveSettings();
           })
       );
 
     new Setting(containerEl)
       .setName("Notes folder")
-      .setDesc("Folder where unpublished files will be moved to")
+      .setDesc("Folder where unpublished files will be moved to. No special characters or path traversal allowed.")
       .addText((text) =>
         text
           .setPlaceholder("Notes")
           .setValue(this.plugin.settings.notesFolder)
           .onChange(async (value) => {
-            this.plugin.settings.notesFolder = value || "Notes";
+            const sanitized = sanitizeFolderName(value, "Notes");
+            this.plugin.settings.notesFolder = sanitized;
+            if (value !== sanitized && value.trim().length > 0) {
+              text.setValue(sanitized);
+            }
             await this.plugin.saveSettings();
           })
       );
 
     new Setting(containerEl)
       .setName("Attachments subfolder")
-      .setDesc("Subfolder within PUBLIC for images and attachments")
+      .setDesc("Subfolder within PUBLIC for images and attachments. No special characters or path traversal allowed.")
       .addText((text) =>
         text
           .setPlaceholder("Attachments")
           .setValue(this.plugin.settings.attachmentsFolder)
           .onChange(async (value) => {
-            this.plugin.settings.attachmentsFolder = value || "Attachments";
+            const sanitized = sanitizeFolderName(value, "Attachments");
+            this.plugin.settings.attachmentsFolder = sanitized;
+            if (value !== sanitized && value.trim().length > 0) {
+              text.setValue(sanitized);
+            }
             await this.plugin.saveSettings();
           })
       );
