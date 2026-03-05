@@ -108,14 +108,12 @@ bun run dev
 bun run build
 ```
 
-## Part of the BytesAndParty Plugin Suite
+## Works Well with Other BytesAndParty Plugins
 
-This plugin works great alongside other plugins from the same author:
-
-- [Auto Categories](https://github.com/BytesAndParty/Obsidian_AutoCategories) - Automatically create category pages from frontmatter
-- [Better Gitignore](https://github.com/BytesAndParty/BetterGitignore) - Beautiful .gitignore editor with templates
-- [Command Overview](https://github.com/BytesAndParty/CommandOverview) - Quick command palette with shortcuts
-- [Customer Tag](https://github.com/BytesAndParty/CustomerTag) - Organize notes by customer tags
+- [Auto Categories](https://github.com/BytesAndParty/Obsidian_AutoCategories) - Ensure category links and pages exist before publishing.
+- [Customer Tag Sorter](https://github.com/BytesAndParty/CustomerTag) - Organize notes by account/customer before promoting them to `PUBLIC/`.
+- [Command Overview](https://github.com/BytesAndParty/CommandOverview) - Keep publish and unpublish actions in a fast keyboard flow.
+- [Better Gitignore](https://github.com/BytesAndParty/BetterGitignore) - Keep local-only Obsidian files out of your shared knowledge repository.
 
 ## License
 

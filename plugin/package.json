@@ -15,7 +15,7 @@
     "knowledge-hub",
     "publish"
   ],
-  "author": "",
+  "author": "Robert Stickler",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.10.0",

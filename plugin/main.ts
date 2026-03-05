@@ -107,11 +107,9 @@ export default class KnowledgeHubPlugin extends Plugin {
     // Settings Tab
     this.addSettingTab(new KnowledgeHubSettingTab(this.app, this));
 
-    console.log("Company Knowledge Hub plugin loaded");
   }
 
   onunload() {
-    console.log("Company Knowledge Hub plugin unloaded");
   }
 
   async loadSettings() {
@@ -127,7 +125,8 @@ export default class KnowledgeHubPlugin extends Plugin {
   // ==========================================================================
 
   /**
-   * Find all files with isPublished: yes that are NOT already in PUBLIC
+   * Find all files with isPublished marker that are NOT already in PUBLIC.
+   * Supports true/false booleans and legacy string values for backward compatibility.
    */
   async findPublishableFiles(): Promise<FileValidationResult[]> {
     const results: FileValidationResult[] = [];

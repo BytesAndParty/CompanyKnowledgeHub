@@ -3,8 +3,8 @@
   "name": "Company Knowledge Hub",
   "version": "1.0.0",
   "minAppVersion": "1.0.0",
-  "description": "Publish notes with isPublished: yes to a shared PUBLIC folder for team knowledge sharing.",
+  "description": "Publishes notes with isPublished: true to a shared PUBLIC folder for team knowledge sharing.",
   "author": "Robert Stickler",
-  "authorUrl": "",
+  "authorUrl": "https://github.com/BytesAndParty",
   "isDesktopOnly": false
 }
