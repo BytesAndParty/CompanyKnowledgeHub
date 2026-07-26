@@ -17,6 +17,9 @@
   ],
   "author": "Robert Stickler",
   "license": "MIT",
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "builtin-modules": "^4.0.0",
